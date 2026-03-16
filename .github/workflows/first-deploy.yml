@@ -1,7 +1,7 @@
-name: Deploy API with JSON Transform
+name: Deploy API with JSON Transform (Pro Mode)
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: 
     branches: [ "main", "master" ]
 
 jobs:
@@ -24,13 +24,13 @@ jobs:
           $ApiAppPoolName = "YIPLiteAPIPool"       # 🛑 เปลี่ยนให้ตรงกับชื่อ App Pool
 
           # ==========================================
-          # ⚙️ 2. เตรียม Connection String สำหรับขึ้นระบบจริง
+          # ⚙️ 2. เตรียม Connection String สำหรับขึ้นระบบจริง (81/SIT)
           # ==========================================
-          # 🛑 ใส่ Connection String ของฝั่ง Server จริง (81/SIT) ตรงนี้
+          # 🛑 นำ Connection String ของจริงมาใส่ตรงนี้ได้เลย
           $DbConnection81 = "Server=AUTOX2;Database=yip_fs;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True"
 
           # ------------------------------------------
-          # 📦 เริ่มกระบวนการ Deploy API
+          # 📦 3. เริ่มกระบวนการ Deploy API
           # ------------------------------------------
           Write-Host "--- 1. Deploying API ---"
           Write-Host "Stopping API App Pool..."
@@ -38,24 +38,30 @@ jobs:
           Start-Sleep -Seconds 2
 
           Write-Host "Copying all files (Including Dev appsettings.json)..."
-          # ก๊อปปี้มาหมดเลย ให้มันทับของเก่าไปเลย
+                                                                                                                         
           Copy-Item -Path $ApiSourceFolder -Destination $ApiTargetFolder -Recurse -Force
 
           # ------------------------------------------
-          # ✨ เริ่มกระบวนการแปลงร่าง (Transform)
+          # ✨ 4. เริ่มกระบวนการแปลงร่าง (Transform)
           # ------------------------------------------
           Write-Host "Transforming appsettings.json for 81..."
           $AppSettingsPath = "$ApiTargetFolder\appsettings.json"
           
           if (Test-Path $AppSettingsPath) {
-              # 1. อ่านไฟล์ JSON ขึ้นมาเป็น Object ให้ PowerShell รู้จัก
-              $JsonContent = Get-Content -Path $AppSettingsPath -Raw | ConvertFrom-Json
+              # 1. อ่านไฟล์แบบ UTF8 (แก้ปัญหาภาษาไทยยึกยือ)
+              $RawJson = Get-Content -Path $AppSettingsPath -Raw -Encoding UTF8
               
-              # 2. 🛑 วิ่งเข้าไปแก้ค่า Connection String ให้เป็นของ 81
-              # (หมายเหตุ: ถ้าโครงสร้าง JSON คุณชื่ออื่น ต้องเปลี่ยนตรงคำว่า .ConnectionStrings.DefaultConnection ให้ตรงกันครับ)
+              # 2. 🧹 ใช้ Regex กวาดลบ Comment แบบ // ออกให้หมด (แต่เว้น https:// ไว้)
+              $CleanJson = [System.Text.RegularExpressions.Regex]::Replace($RawJson, '(?<!:)\/\/.*', '')
+                                                                                
+              
+              # 3. แปลงร่างเป็น Object
+              $JsonContent = $CleanJson | ConvertFrom-Json
+              
+              # 4. วิ่งเข้าไปแก้ค่า Connection String ให้เป็นของ 81
               $JsonContent.ConnectionStrings.DefaultConnection = $DbConnection81
               
-              # 3. แปลงกลับเป็นข้อความ JSON และเซฟทับไฟล์เดิม
+              # 5. แปลงกลับเป็น JSON และเซฟทับไฟล์เดิม (จัดหน้าลึก 10 ชั้น และใช้ UTF8)
               $JsonContent | ConvertTo-Json -Depth 10 | Set-Content -Path $AppSettingsPath -Encoding UTF8
               
               Write-Host "Transform Success!"
@@ -64,8 +70,9 @@ jobs:
           }
 
           # ------------------------------------------
-          # 🚀 เปิดใช้งานเว็บ
+          # 🚀 5. เปิดใช้งานเว็บ
           # ------------------------------------------
           Write-Host "Starting API App Pool..."
           Start-WebAppPool -Name $ApiAppPoolName
-          Write-Host "API Deployment & Transform Done!"
+          
+          Write-Host "🎉 API Deployment & Transform Done!"
