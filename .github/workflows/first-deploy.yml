@@ -23,16 +23,16 @@ jobs:
           # 🛑 3. เปลี่ยนตรงนี้เป็นชื่อ App Pool ของเว็บ
           $AppPoolName = "DefaultAppPool"
 
-          Write-Host "กำลังหยุดการทำงานของ IIS App Pool: $AppPoolName..."
+          Write-Host "1. Stopping IIS App Pool: $AppPoolName..."
           Import-Module WebAdministration
           Stop-WebAppPool -Name $AppPoolName
           Start-Sleep -Seconds 2 # รอ 2 วินาทีให้เว็บหยุดสนิทเพื่อไม่ให้ไฟล์ล็อค
 
-          Write-Host "กำลังคัดลอกไฟล์เวอร์ชันใหม่ไปที่: $TargetFolder..."
+          Write-Host "2. Copying new version files to: $TargetFolder..."
           # ก๊อปปี้ไฟล์จากโฟลเดอร์ต้นทาง ไปทับไฟล์เดิมใน IIS
           Copy-Item -Path $SourceFolder -Destination $TargetFolder -Recurse -Force
 
-          Write-Host "กำลังเปิดการทำงานของ IIS App Pool: $AppPoolName..."
+          Write-Host "3. Starting IIS App Pool: $AppPoolName..."
           Start-WebAppPool -Name $AppPoolName
 
-          Write-Host "🎉 อัปเดตเว็บไซต์เสร็จสมบูรณ์!"
+          Write-Host "🎉 Deployment Completed Successfully!"
