@@ -30,15 +30,21 @@ jobs:
           $DbConnection81 = "Server=AUTOX2;Database=yip_fs;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True"
 
           # ------------------------------------------
-          # 📦 3. เริ่มกระบวนการ Deploy API
+          # 📦 3. เริ่มกระบวนการ Deploy API (แบบเช็กสถานะ)
           # ------------------------------------------
           Write-Host "--- 1. Deploying API ---"
-          Write-Host "Stopping API App Pool..."
-          Stop-WebAppPool -Name $ApiAppPoolName
-          Start-Sleep -Seconds 2
+          
+          # 🛡️ เช็กสถานะก่อนปิด
+          $poolState = (Get-WebAppPoolState -Name $ApiAppPoolName).Value
+          if ($poolState -eq "Started") {
+              Write-Host "Stopping API App Pool..."
+              Stop-WebAppPool -Name $ApiAppPoolName
+              Start-Sleep -Seconds 2
+          } else {
+              Write-Host "API App Pool is already stopped. Skipping stop command."
+          }
 
           Write-Host "Copying all files (Including Dev appsettings.json)..."
-                                                                                                                         
           Copy-Item -Path $ApiSourceFolder -Destination $ApiTargetFolder -Recurse -Force
 
           # ------------------------------------------
