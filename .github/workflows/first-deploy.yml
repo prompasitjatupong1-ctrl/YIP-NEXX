@@ -18,7 +18,7 @@ jobs:
           $SourceFolder = ".\publish_files\*" 
           
           # 🛑 2. เปลี่ยนตรงนี้เป็นโฟลเดอร์ปลายทางของ IIS
-          $TargetFolder = "D:\YIPLite\test_github" 
+          $TargetFolder = "D:\YIPLite\" 
           
           # 🛑 3. เปลี่ยนตรงนี้เป็นชื่อ App Pool ของเว็บ
           $AppPoolName = "DefaultAppPool"
