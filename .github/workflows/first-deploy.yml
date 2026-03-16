@@ -1,23 +1,21 @@
 name: Test Local CD
 
-# สั่งให้ทำงานทุกครั้งที่มีคน Push โค้ดเข้ากิ่ง main
 on:
   push:
     branches: [ "main", "master" ]
 
 jobs:
   test-connection:
-    # 🌟 ไฮไลท์สำคัญ: คำสั่งนี้คือการเรียกใช้เครื่อง AUTOX2 ของคุณ
     runs-on: self-hosted 
 
     steps:
-      - name: 📥 ดาวน์โหลดโค้ดล่าสุดมาที่เครื่อง
+      - name: 📥 Download Code
         uses: actions/checkout@v4
 
-      - name: 👋 ทดสอบสั่งรันคำสั่งบนเครื่อง AUTOX2
+      - name: 👋 Test Runner Commands
         run: |
-          echo "🎉 Hello from GitHub Actions!"
-          echo "ตอนนี้ฉันกำลังรันอยู่บนเครื่องชื่อ:"
+          echo "Hello from GitHub Actions!"
+          echo "Currently running on machine:"
           hostname
-          echo "โฟลเดอร์ทำงานปัจจุบันของฉันคือ:"
+          echo "Current working directory is:"
           pwd
