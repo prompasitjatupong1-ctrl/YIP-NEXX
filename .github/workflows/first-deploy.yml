@@ -1,38 +1,64 @@
-name: Deploy Pre-built Blazor to IIS
+name: Deploy API and Web to IIS
 
 on:
   push:
     branches: [ "main", "master" ]
 
 jobs:
-  deploy-only:
+  deploy-all:
     runs-on: self-hosted 
 
     steps:
-      - name: 📥 1. โหลดไฟล์ล่าสุดที่ทีม Dev อัปโหลดขึ้น GitHub
+      - name: 📥 1. Download Code
         uses: actions/checkout@v4
 
-      - name: 🚀 2. นำไฟล์ไปวางลง IIS
+      - name: 🚀 2. Deploy to IIS (API & Web)
         run: |
-          # 🛑 1. เปลี่ยนตรงนี้เป็นชื่อโฟลเดอร์ที่ทีม Dev เอาไฟล์ Publish มาวางไว้ใน GitHub
-          $SourceFolder = ".\publish_files\*" 
-          
-          # 🛑 2. เปลี่ยนตรงนี้เป็นโฟลเดอร์ปลายทางของ IIS
-          $TargetFolder = "D:\YIPLite\" 
-          
-          # 🛑 3. เปลี่ยนตรงนี้เป็นชื่อ App Pool ของเว็บ
-          $AppPoolName = "DefaultAppPool"
-
-          Write-Host "1. Stopping IIS App Pool: $AppPoolName..."
           Import-Module WebAdministration
-          Stop-WebAppPool -Name $AppPoolName
-          Start-Sleep -Seconds 2 # รอ 2 วินาทีให้เว็บหยุดสนิทเพื่อไม่ให้ไฟล์ล็อค
 
-          Write-Host "2. Copying new version files to: $TargetFolder..."
-          # ก๊อปปี้ไฟล์จากโฟลเดอร์ต้นทาง ไปทับไฟล์เดิมใน IIS
-          Copy-Item -Path $SourceFolder -Destination $TargetFolder -Recurse -Force
+          # ==========================================
+          # ⚙️ ส่วนที่ 1: ตั้งค่าตัวแปรสำหรับฝั่ง API
+          # ==========================================
+          $ApiSourceFolder = ".\publish_files\YIPLiteAPISolution\*"
+          $ApiTargetFolder = "D:\YIPLite\YIPLiteAPISolution" # 🛑 เปลี่ยนเป็นโฟลเดอร์ IIS ของ API
+          $ApiAppPoolName = "YIPLiteAPIPool"                     # 🛑 เปลี่ยนเป็นชื่อ App Pool ของ API
 
-          Write-Host "3. Starting IIS App Pool: $AppPoolName..."
-          Start-WebAppPool -Name $AppPoolName
+          # ==========================================
+          # ⚙️ ส่วนที่ 2: ตั้งค่าตัวแปรสำหรับฝั่ง WEB
+          # ==========================================
+          $WebSourceFolder = ".\publish_files\YIPLiteWebSolution\*"
+          $WebTargetFolder = "D:\YIPLite\YIPLiteWebSolution" # 🛑 เปลี่ยนเป็นโฟลเดอร์ IIS ของ Web
+          $WebAppPoolName = "YIPLiteWebPool"                     # 🛑 เปลี่ยนเป็นชื่อ App Pool ของ Web
 
-          Write-Host "🎉 Deployment Completed Successfully!"
+          # ------------------------------------------
+          # 📦 เริ่มกระบวนการ Deploy API
+          # ------------------------------------------
+          Write-Host "--- 1. Deploying API ---"
+          Write-Host "Stopping API App Pool: $ApiAppPoolName..."
+          Stop-WebAppPool -Name $ApiAppPoolName
+          Start-Sleep -Seconds 2
+
+          Write-Host "Copying API files to: $ApiTargetFolder..."
+          Copy-Item -Path $ApiSourceFolder -Destination $ApiTargetFolder -Recurse -Force
+
+          Write-Host "Starting API App Pool: $ApiAppPoolName..."
+          Start-WebAppPool -Name $ApiAppPoolName
+          Write-Host "API Deployment Done!"
+          Write-Host " "
+
+          # ------------------------------------------
+          # 📦 เริ่มกระบวนการ Deploy WEB
+          # ------------------------------------------
+          Write-Host "--- 2. Deploying WEB ---"
+          Write-Host "Stopping WEB App Pool: $WebAppPoolName..."
+          Stop-WebAppPool -Name $WebAppPoolName
+          Start-Sleep -Seconds 2
+
+          Write-Host "Copying WEB files to: $WebTargetFolder..."
+          Copy-Item -Path $WebSourceFolder -Destination $WebTargetFolder -Recurse -Force
+
+          Write-Host "Starting WEB App Pool: $WebAppPoolName..."
+          Start-WebAppPool -Name $WebAppPoolName
+          Write-Host "WEB Deployment Done!"
+
+          Write-Host "🎉 Both API and WEB updated successfully!"
