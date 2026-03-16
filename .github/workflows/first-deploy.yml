@@ -1,21 +1,38 @@
-name: Test Local CD
+name: Deploy Pre-built Blazor to IIS
 
 on:
   push:
     branches: [ "main", "master" ]
 
 jobs:
-  test-connection:
+  deploy-only:
     runs-on: self-hosted 
 
     steps:
-      - name: 📥 Download Code
+      - name: 📥 1. โหลดไฟล์ล่าสุดที่ทีม Dev อัปโหลดขึ้น GitHub
         uses: actions/checkout@v4
 
-      - name: 👋 Test Runner Commands
+      - name: 🚀 2. นำไฟล์ไปวางลง IIS
         run: |
-          echo "Hello from GitHub Actions!"
-          echo "Currently running on machine:"
-          hostname
-          echo "Current working directory is:"
-          pwd
+          # 🛑 1. เปลี่ยนตรงนี้เป็นชื่อโฟลเดอร์ที่ทีม Dev เอาไฟล์ Publish มาวางไว้ใน GitHub
+          $SourceFolder = ".\publish_files\*" 
+          
+          # 🛑 2. เปลี่ยนตรงนี้เป็นโฟลเดอร์ปลายทางของ IIS
+          $TargetFolder = "D:\YIPLite\test_github" 
+          
+          # 🛑 3. เปลี่ยนตรงนี้เป็นชื่อ App Pool ของเว็บ
+          $AppPoolName = "DefaultAppPool"
+
+          Write-Host "กำลังหยุดการทำงานของ IIS App Pool: $AppPoolName..."
+          Import-Module WebAdministration
+          Stop-WebAppPool -Name $AppPoolName
+          Start-Sleep -Seconds 2 # รอ 2 วินาทีให้เว็บหยุดสนิทเพื่อไม่ให้ไฟล์ล็อค
+
+          Write-Host "กำลังคัดลอกไฟล์เวอร์ชันใหม่ไปที่: $TargetFolder..."
+          # ก๊อปปี้ไฟล์จากโฟลเดอร์ต้นทาง ไปทับไฟล์เดิมใน IIS
+          Copy-Item -Path $SourceFolder -Destination $TargetFolder -Recurse -Force
+
+          Write-Host "กำลังเปิดการทำงานของ IIS App Pool: $AppPoolName..."
+          Start-WebAppPool -Name $AppPoolName
+
+          Write-Host "🎉 อัปเดตเว็บไซต์เสร็จสมบูรณ์!"
