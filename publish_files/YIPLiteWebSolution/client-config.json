@@ -1,0 +1,16 @@
+{
+  "AzureAd": {
+    "Authority": "https://login.microsoftonline.com/6d79a889-5112-4a3b-b70f-3f6e88da5c06", // Directory (tenant) ID
+    "ClientId": "5dc170b2-de36-4c3c-9035-ff3c65a9ba01", // APP-CLIENT-ID
+    "ValidateAuthority": true
+  },
+  "Graph": {
+    "Scopes": [ "User.Read", "Directory.Read.All", "GroupMember.Read.All", "Group.Read.All", "User.Read.All", "User.ReadBasic.All" ]
+  },
+  "Api": {
+    "Scopes": [ "api://9f7bc99b-ac34-4a74-b469-02298d925ecd/access_as_user" ] // API-APP-CLIENT-ID
+  },
+  "Google": {
+    "ClientId": "371071475792-cfunc7du8pgku1j5u6iufp0ah9043ps3.apps.googleusercontent.com" // Google OAuth client ID
+  }
+}

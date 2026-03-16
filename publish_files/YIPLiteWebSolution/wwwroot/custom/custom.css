@@ -1,0 +1,767 @@
+﻿/* ==================================== begin::main ==================================== */
+html, body {
+    font-family: 'Inter','Noto Sans Thai',Helvetica,sans-serif !important;
+}
+
+.main-container {
+    width: 100%;
+}
+
+.container-custom {
+    max-width: 1320px;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container-fullscreen {
+    max-width: 95%;
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    width: 100%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+ul.pagination > .page-item > .form-select {
+    padding: 0.4rem 2rem 0.4rem 1rem;
+}
+
+.card .card-header .card-title .card-label {
+    display: flex;
+    align-items: center;
+}
+
+.card-body-thin {
+    padding: 0.5rem 0.75rem !important;
+}
+
+.modal-content .modal-header .modal-title {
+    display: flex;
+    align-items: center;
+}
+
+.form-control-sm {
+    font-size: 1rem !important;
+}
+/* ==================================== end::main ==================================== */
+
+
+
+/* ==================================== begin::aside-menu ==================================== */
+.aside-menu .menu > .menu-item > .menu-link {
+    width: 120px !important;
+    height: 84px !important;
+    text-align: center !important;
+}
+
+    .aside-menu .menu > .menu-item > .menu-link .menu-title {
+        color: #babfcd !important;
+    }
+
+        .aside-menu .menu > .menu-item > .menu-link .menu-title:hover {
+            color: #ffffff !important;
+        }
+/* ==================================== end::aside-menu ==================================== */
+
+
+
+/* ==================================== begin:: modal-dialog ==================================== */
+.modal-xxl {
+    --bs-modal-width: 95% !important;
+}
+
+.modal-dialog.modal-fullscreen {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+    .modal-dialog.modal-fullscreen .modal-content {
+        height: 100%;
+        border-radius: 0;
+    }
+/* ==================================== end:: modal-dialog ==================================== */
+
+
+
+/* ==================================== begin::telerik ==================================== */
+:root {
+    --kendo-font-family: 'Inter','Noto Sans Thai',Helvetica,sans-serif !important;
+    --kendo-font-size: 1rem !important;
+}
+
+/* begin::grid */
+.k-grid .k-grid-header .k-table-th {
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 1.085rem !important;
+}
+
+.k-grid .k-grid-md td, .k-grid .k-grid-md .k-table-td, .k-grid-md td, .k-grid-md .k-table-td {
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    vertical-align: middle;
+}
+
+.k-column-title {
+    font-weight: bold;
+    font-size: 1.085rem !important;
+}
+
+.k-grid td.k-selected, .k-grid .k-table-row.k-selected > td, .k-grid .k-table-td.k-selected, .k-grid .k-table-row.k-selected > .k-table-td {
+    /*background-color: color-mix(in srgb, var(--kendo-color-primary, #1274AC) 25%, transparent);*/
+    background-color: transparent !important;
+}
+
+.k-table-tbody .k-table-row.k-selected > .k-table-td, .k-table-list .k-table-row.k-selected {
+    /*background-color: color-mix(in srgb, var(--kendo-color-primary, #1274AC) 25%, transparent);*/
+    background-color: transparent !important;
+}
+
+.k-master-row.k-table-row.k-selected td.k-grid-content-sticky::before,
+.k-master-row.k-table-row.k-selected .k-table-td.k-grid-row-sticky::before,
+.k-master-row.k-table-row td.k-grid-content-sticky.k-selected::before,
+.k-master-row.k-table-row .k-table-td.k-grid-content-sticky.k-selected::before {
+    /* background-color: color-mix(in srgb, var(--kendo-color-primary, #1274AC) 25%, transparent); */
+    background-color: var(--kendo-color-surface-alt, #ffffff);
+}
+
+.k-master-row.k-selected.k-table-alt-row td.k-grid-content-sticky::before,
+.k-master-row.k-selected.k-table-alt-row .k-table-td.k-grid-row-sticky::before,
+.k-master-row.k-table-alt-row td.k-grid-content-sticky.k-selected::before,
+.k-master-row.k-table-alt-row .k-table-td.k-grid-content-sticky.k-selected::before {
+    /* background-color: color-mix(in srgb, var(--kendo-color-primary, #1274AC) 24%, transparent); */
+    background-color: var(--kendo-color-base, #f5f5f5);
+}
+
+.k-selected-cell-bg, .k-table-alt-row.k-selected-cell-bg {
+    background-color: #06514E !important;
+    color: #ffffff !important;
+}
+
+    .k-selected-cell-bg td.k-grid-content-sticky::before, .k-table-alt-row.k-selected-cell-bg td.k-grid-content-sticky::before {
+        background-color: #06514E !important;
+        color: #ffffff !important;
+    }
+
+.k-button-md, .k-toolbar, .k-input-inner, .k-grid-pager {
+    /*font-size: 0.96rem !important;*/
+    font-size: 1rem !important;
+}
+
+/* link ปกติ */
+td.k-table-td a {
+    color: #0066cc; /* น้ำเงินโทน web link */
+    text-decoration: none; /* ไม่ให้มีเส้นใต้ตอนปกติ */
+}
+
+    /* link ตอน hover */
+    td.k-table-td a:hover {
+        text-decoration: underline; /* มีเส้นใต้ */
+    }
+
+.grid .k-table-th {
+    white-space: nowrap;
+}
+
+/* ===== Center checkbox column (header + body) เฉพาะ grid นี้ ===== */
+.groups-grid .k-table-thead th[data-col-index="0"],
+.groups-grid .k-table-tbody td[data-col-index="0"] {
+    text-align: center; /* จัดข้อความ/อินไลน์ให้อยู่กลางแนวนอน */
+    padding-left: 0; /* ลดระยะขอบเพื่อให้ดูเนียน */
+    padding-right: 0;
+}
+
+/* คุมตัว checkbox เองให้อยู่กลางแบบ flex */
+.groups-grid th[data-col-index="0"] .k-checkbox-wrap,
+.groups-grid td[data-col-index="0"] .k-checkbox-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* เผื่อกรณีธีมตั้ง inline-block */
+}
+
+/* fallback: ถ้าบางเวอร์ชันไม่มี data-col-index ให้ใช้ :first-child */
+.groups-grid .k-table-thead th:first-child,
+.groups-grid .k-table-tbody td:first-child {
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.groups-grid th:first-child .k-checkbox-wrap,
+.groups-grid td:first-child .k-checkbox-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* กล่องช่วยจัดให้อยู่กลาง td ทั้งแนวตั้ง-แนวนอน */
+.cell-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+/* รีเซ็ตค่าเริ่มต้นของ form-switch ที่ดันให้เอียงซ้าย */
+.k-table-td .form-switch {
+    padding-left: 0 !important;
+}
+
+    .k-table-td .form-switch .form-check-input {
+        margin-left: 0 !important;
+        display: block;
+        margin-right: 0; /* กันดันขวา */
+    }
+/* end::grid */
+
+/* begin::loading */
+.customized-loader-container.k-loader-container {
+    position: fixed;
+}
+
+.lds-roller-text {
+    margin-top: 10px;
+    font-weight: bolder;
+    color: #022b00;
+    font-size: 1.075rem;
+}
+
+.lds-roller {
+    /* change color here */
+    color: #022b00
+}
+
+    .lds-roller,
+    .lds-roller div,
+    .lds-roller div:after {
+        box-sizing: border-box;
+    }
+
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+    .lds-roller div {
+        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        transform-origin: 40px 40px;
+    }
+
+        .lds-roller div:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 7.2px;
+            height: 7.2px;
+            border-radius: 50%;
+            background: currentColor;
+            margin: -3.6px 0 0 -3.6px;
+        }
+
+        .lds-roller div:nth-child(1) {
+            animation-delay: -0.036s;
+        }
+
+            .lds-roller div:nth-child(1):after {
+                top: 62.62742px;
+                left: 62.62742px;
+            }
+
+        .lds-roller div:nth-child(2) {
+            animation-delay: -0.072s;
+        }
+
+            .lds-roller div:nth-child(2):after {
+                top: 67.71281px;
+                left: 56px;
+            }
+
+        .lds-roller div:nth-child(3) {
+            animation-delay: -0.108s;
+        }
+
+            .lds-roller div:nth-child(3):after {
+                top: 70.90963px;
+                left: 48.28221px;
+            }
+
+        .lds-roller div:nth-child(4) {
+            animation-delay: -0.144s;
+        }
+
+            .lds-roller div:nth-child(4):after {
+                top: 72px;
+                left: 40px;
+            }
+
+        .lds-roller div:nth-child(5) {
+            animation-delay: -0.18s;
+        }
+
+            .lds-roller div:nth-child(5):after {
+                top: 70.90963px;
+                left: 31.71779px;
+            }
+
+        .lds-roller div:nth-child(6) {
+            animation-delay: -0.216s;
+        }
+
+            .lds-roller div:nth-child(6):after {
+                top: 67.71281px;
+                left: 24px;
+            }
+
+        .lds-roller div:nth-child(7) {
+            animation-delay: -0.252s;
+        }
+
+            .lds-roller div:nth-child(7):after {
+                top: 62.62742px;
+                left: 17.37258px;
+            }
+
+        .lds-roller div:nth-child(8) {
+            animation-delay: -0.288s;
+        }
+
+            .lds-roller div:nth-child(8):after {
+                top: 56px;
+                left: 12.28719px;
+            }
+
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.lds-roller-white-text {
+    margin-top: 10px;
+    font-weight: bolder;
+    color: #ffffff;
+    font-size: 1.075rem;
+}
+
+.lds-roller-white {
+    /* change color here */
+    color: #ffffff
+}
+
+    .lds-roller-white,
+    .lds-roller-white div,
+    .lds-roller-white div:after {
+        box-sizing: border-box;
+    }
+
+.lds-roller-white {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+    .lds-roller-white div {
+        animation: lds-roller-white 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        transform-origin: 40px 40px;
+    }
+
+        .lds-roller-white div:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 7.2px;
+            height: 7.2px;
+            border-radius: 50%;
+            background: currentColor;
+            margin: -3.6px 0 0 -3.6px;
+        }
+
+        .lds-roller-white div:nth-child(1) {
+            animation-delay: -0.036s;
+        }
+
+            .lds-roller-white div:nth-child(1):after {
+                top: 62.62742px;
+                left: 62.62742px;
+            }
+
+        .lds-roller-white div:nth-child(2) {
+            animation-delay: -0.072s;
+        }
+
+            .lds-roller-white div:nth-child(2):after {
+                top: 67.71281px;
+                left: 56px;
+            }
+
+        .lds-roller-white div:nth-child(3) {
+            animation-delay: -0.108s;
+        }
+
+            .lds-roller-white div:nth-child(3):after {
+                top: 70.90963px;
+                left: 48.28221px;
+            }
+
+        .lds-roller-white div:nth-child(4) {
+            animation-delay: -0.144s;
+        }
+
+            .lds-roller-white div:nth-child(4):after {
+                top: 72px;
+                left: 40px;
+            }
+
+        .lds-roller-white div:nth-child(5) {
+            animation-delay: -0.18s;
+        }
+
+            .lds-roller-white div:nth-child(5):after {
+                top: 70.90963px;
+                left: 31.71779px;
+            }
+
+        .lds-roller-white div:nth-child(6) {
+            animation-delay: -0.216s;
+        }
+
+            .lds-roller-white div:nth-child(6):after {
+                top: 67.71281px;
+                left: 24px;
+            }
+
+        .lds-roller-white div:nth-child(7) {
+            animation-delay: -0.252s;
+        }
+
+            .lds-roller-white div:nth-child(7):after {
+                top: 62.62742px;
+                left: 17.37258px;
+            }
+
+        .lds-roller-white div:nth-child(8) {
+            animation-delay: -0.288s;
+        }
+
+            .lds-roller-white div:nth-child(8):after {
+                top: 56px;
+                left: 12.28719px;
+            }
+
+@keyframes lds-roller-white {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* end::loading */
+
+/* begin::notification */
+.telerik-notification {
+    position: fixed;
+    display: block;
+    top: 5px !important;
+    right: 15px !important;
+}
+
+    .telerik-notification .k-notification {
+        width: 300px;
+        padding: 15px;
+    }
+
+.telerik-info-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 6px;
+    padding-top: 5px;
+    margin: 0;
+}
+
+.telerik-info-message {
+    font-size: 14px;
+    padding-left: 6px;
+    padding-top: 4px;
+    margin: 0;
+}
+
+.telerik-info-time {
+    padding-left: 6px;
+    font-size: 13px;
+    font-style: italic;
+    text-align: right;
+    margin: 3px;
+}
+
+.k-notification-status {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.k-notification-close-action .k-svg-i-x {
+    top: -20px !important;
+}
+
+.k-notification-container {
+    margin: 6px 0;
+}
+
+.high-zindex {
+    z-index: 654321;
+}
+/* end::notification */
+
+/* begin::popup */
+.k-window-titlebar .k-window-title {
+    font-weight: bold !important;
+    font-size: 1.25rem !important;
+}
+/* end::popup */
+
+/* begin::button */
+.telerik-button-search,
+.telerik-button-search:hover {
+    width: 100px;
+    height: 35px;
+}
+/* end::button */
+
+/* ให้ TelerikEditor popup ลอยเหนือ ComponentModal */
+.k-dialog,
+.k-dialog-wrapper,
+.k-editor-dialog {
+    z-index: 200000 !important;
+}
+
+/* ดันทุก popup ของ Telerik ให้อยู่เหนือ modal (100050) */
+.k-animation-container,
+.k-animation-container .k-popup,
+.k-animation-container .k-calendar-container {
+    z-index: 200300 !important;
+}
+/* ==================================== end::telerik ==================================== */
+
+
+
+/* ==================================== begin::validation-message ==================================== */
+.validation-message {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--bs-form-invalid-color);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.invalid ~ .validation-message {
+    display: block;
+}
+
+.login-input-field .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #f1f5f9;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+    .login-input-field .form-control:focus {
+        border-color: #2563eb;
+        background: #fff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+.form-control.invalid {
+    border-color: var(--bs-form-invalid-color);
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+    .form-control.invalid:focus {
+        border-color: var(--bs-form-invalid-color);
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    }
+
+textarea.form-control.invalid {
+    padding-right: calc(1.5em + 0.75rem);
+    background-position: top calc(0.375em + 0.1875rem) right calc(0.375em + 0.1875rem);
+}
+
+.form-check-input.invalid ~ .form-check-label {
+    color: var(--bs-form-invalid-color);
+}
+
+.form-check-input.invalid ~ .validation-message {
+    display: block;
+}
+
+/* animation fadeIn */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ==================================== end::validation-message ==================================== */
+
+
+
+/* ==================================== begin:: timeline ==================================== */
+/* begin timeline-label */
+.timeline {
+    --bs-timeline-icon-size: 60px !important;
+}
+
+.timeline-item .timeline-label {
+    width: 120px !important;
+}
+
+.timeline-label:before {
+    left: 121px !important;
+}
+/* end timeline-label */
+
+/* เพิ่มน้ำหนักเส้นตั้งเล็กน้อย */
+.timeline .timeline-line {
+    border-left-width: 2px;
+}
+
+.bullet-vertical {
+    width: 3px;
+    opacity: .35;
+}
+
+/* ไม่ให้ไทม์ไลน์มีสกอร์ลบาร์แนวนอน */
+.hover-scroll-overlay-y {
+    overflow-x: hidden !important;
+}
+
+/* เว้นระยะ content กับเส้นไทม์ไลน์ซ้าย เพิ่มความอ่านง่าย */
+.timeline .timeline-item .timeline-content {
+    padding-left: .25rem;
+}
+
+/* แถบ info chip ให้ดูนุ่มนวล */
+.info-chip {
+    border: 1px dashed rgba(0,0,0,.08);
+    box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+
+    .info-chip .vr {
+        height: 20px;
+        opacity: .25;
+    }
+/* ==================================== end:: timeline ==================================== */
+
+
+
+/* ==================================== begin:: tippy.js ==================================== */
+/* ให้ tooltip ของ tippy.js อยู่เหนือ modal */
+/* Tippy v6 ขึ้นไป: โหนดครอบ tooltip */
+[data-tippy-root] {
+    z-index: 100100 !important; /* สูงกว่า modal 100050 */
+}
+
+/* เผื่อบาง build/ธีมที่ใช้คลาสพวกนี้ */
+.tippy,
+.tippy-popper {
+    z-index: 100100 !important;
+}
+
+.entra-icon {
+    --size: 28px;
+    width: var(--size);
+    height: var(--size);
+    display: inline-grid;
+    place-items: center;
+    border-radius: 8px;
+    border: 1px solid var(--lc-border);
+    background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.1));
+    line-height: 0; /* กันการยืดจาก line-height */
+}
+
+    .entra-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .entra-icon rect {
+        fill: none; /* ถ้าอยากเป็นกรอบ */
+        stroke: currentColor;
+        stroke-width: 2;
+        /* หรือถ้าอยากให้สี่เหลี่ยมทึบ:
+     fill: currentColor; stroke: none; */
+    }
+/* ==================================== end:: tippy.js ==================================== */
+
+
+/* ==================================== begin:: other ==================================== */
+.chart-icon {
+    height: 20px;
+    display: inline-block;
+    margin-right: 2px;
+    margin-top: -7px;
+}
+
+.last-login-pill {
+    border: 1px solid rgba(0,0,0,.06);
+    background: rgba(255,255,255,.85);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.04);
+    backdrop-filter: blur(6px);
+    min-height: 40px;
+}
+
+.theme-dark .last-login-pill {
+    background: rgba(30,30,45,.55);
+    border-color: rgba(255,255,255,.08);
+}
+
+.last-login-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,158,247,.10); /* โทน primary แบบ metronic */
+}
+
+.theme-dark .last-login-icon {
+    background: rgba(0,158,247,.16);
+}
+
+/* ==================================== end:: other ==================================== */
