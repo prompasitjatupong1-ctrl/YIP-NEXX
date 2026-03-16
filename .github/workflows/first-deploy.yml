@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy-transform:
-    runs-on: self-hosted 
+    runs-on: [self-hosted, autox2_81] 
 
     steps:
       - name: 📥 1. Download Code
