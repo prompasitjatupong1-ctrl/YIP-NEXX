@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "YIPLiteWebSolution.Client",
   "resources": {
-    "hash": "sha256-spwWC4uIqHesQg5j9XoEmyd/u03i3NDkBnAmzm6pQqo=",
+    "hash": "sha256-ipfVZaDcrRqQnWdCjOUWHVZg4LKLD4JZ5DfzkXH3WLo=",
     "fingerprinting": {
       "Azure.Core.ltf0pljmuu.wasm": "Azure.Core.wasm",
       "Blazored.LocalStorage.12n6dz54qr.wasm": "Blazored.LocalStorage.wasm",
@@ -134,8 +134,8 @@
       "Telerik.SvgIcons.3h8llftgi9.wasm": "Telerik.SvgIcons.wasm",
       "Telerik.Zip.skbiiewanb.wasm": "Telerik.Zip.wasm",
       "Tewr.Blazor.FileReader.64lx0zzd22.wasm": "Tewr.Blazor.FileReader.wasm",
-      "YIPLiteWebSolution.Client.1l5npusthb.wasm": "YIPLiteWebSolution.Client.wasm",
-      "YIPLiteWebSolution.Shared.sxynigismt.wasm": "YIPLiteWebSolution.Shared.wasm",
+      "YIPLiteWebSolution.Client.2fel3830ky.wasm": "YIPLiteWebSolution.Client.wasm",
+      "YIPLiteWebSolution.Shared.lvgyj0y6jj.wasm": "YIPLiteWebSolution.Shared.wasm",
       "dotnet.native.eyrc13iya8.js": "dotnet.native.js",
       "dotnet.native.if8ftmq0xe.wasm": "dotnet.native.wasm",
       "dotnet.js": "dotnet.js",
@@ -288,8 +288,8 @@
       "Telerik.SvgIcons.3h8llftgi9.wasm": "sha256-2UDYFdT3EWKUH7X+xf19Fanslmn0MPM1E/2+IcAv0fk=",
       "Telerik.Zip.skbiiewanb.wasm": "sha256-HNXiKSbnZetk5fSrzgtu2k6a8QNlvB5wtnqt1DdmDzs=",
       "Tewr.Blazor.FileReader.64lx0zzd22.wasm": "sha256-2johdatokNmFJ2ImQ4NDECayWmZZwkT4Q03+I8iggx8=",
-      "YIPLiteWebSolution.Client.1l5npusthb.wasm": "sha256-BW1g8BddCNwUfjo9dhXHKjQFKB8zo84tViWAGoxlhtk=",
-      "YIPLiteWebSolution.Shared.sxynigismt.wasm": "sha256-oMIAjw0zyNda1BYYkEACJmCQfcnyewr1Xp/qxbxaw0E="
+      "YIPLiteWebSolution.Client.2fel3830ky.wasm": "sha256-wpBFFo7sXA/nhnEo9ZH3zuk9kNuw6jJ1Mli0ycc7yqY=",
+      "YIPLiteWebSolution.Shared.lvgyj0y6jj.wasm": "sha256-8RxUNHGbNswUW4DTfF1ZWsHx5uqrr3A6zyM1adpDvFk="
     }
   },
   "cacheBootResources": true,
