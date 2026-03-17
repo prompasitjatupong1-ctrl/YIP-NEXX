@@ -55,7 +55,7 @@ jobs:
 
               # 📂 ก๊อปปี้ไฟล์ (เกราะป้องกัน: ละเว้นไฟล์ Config ทุกชนิดไม่ให้โดนทับ)
               Write-Host "Copying files to $Target (Skipping Config files)..."
-              Copy-Item -Path $Source -Destination $Target -Recurse -Force -Exclude "appsettings.autox2.json", "appsettings.Production.json"
+              Copy-Item -Path $Source -Destination $Target -Recurse -Force -Exclude "appsettings.autox2.json", "web.config"
 
               # 🚀 สั่งเปิด App Pool (เช็กสถานะก่อน)
               $poolState = (Get-WebAppPoolState -Name $AppPool).Value
