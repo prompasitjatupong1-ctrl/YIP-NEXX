@@ -1,10 +1,11 @@
 name: Deploy API & Web (Best Practice Config)
 
 on:
-  push:
+  # push:
+   workflow_dispatch: 
     branches: [ "main", "master" ]
   # 💡 เพิ่ม workflow_dispatch เพื่อให้คุณกดปุ่มสั่งรัน (Manual) ผ่านหน้าเว็บ GitHub ได้ด้วย
-  workflow_dispatch: 
+ 
 
 jobs:
   deploy-to-server:
