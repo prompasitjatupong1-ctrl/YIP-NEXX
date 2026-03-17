@@ -1,0 +1,76 @@
+name: Deploy API & Web (Best Practice Config)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  # 💡 เพิ่ม workflow_dispatch เพื่อให้คุณกดปุ่มสั่งรัน (Manual) ผ่านหน้าเว็บ GitHub ได้ด้วย
+  workflow_dispatch: 
+
+jobs:
+  deploy-to-server:
+    # 🎯 ระบุป้ายชื่อเครื่องเป้าหมาย (แก้เป็น aws-prod ได้เมื่อไปทำเครื่องจริง)
+    runs-on: [self-hosted, autox2_81] 
+
+    steps:
+      - name: 📥 1. Download Code
+        uses: actions/checkout@v4
+
+      - name: 🚀 2. Deploy to IIS (Safe Mode)
+        run: |
+          Import-Module WebAdministration
+
+          # ==========================================
+          # ⚙️ 1. ตั้งค่าโฟลเดอร์ฝั่ง API และ WEB
+          # ==========================================
+          $ApiSourceFolder = ".\publish_files\YIPLiteAPISolution\*"
+          $ApiTargetFolder = "D:\YIPLite\API"  # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+          $ApiAppPoolName = "ApiAppPool"       # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+
+          $WebSourceFolder = ".\publish_files\YIPLiteWebSolution\*"
+          $WebTargetFolder = "D:\YIPLite\WEB"  # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+          $WebAppPoolName = "WebAppPool"       # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+
+          # ==========================================
+          # 📦 2. สร้างฟังก์ชัน Deploy (เพื่อไม่ให้โค้ดซ้ำซ้อน)
+          # ==========================================
+          function Deploy-IISApp {
+              param (
+                  [string]$AppName,
+                  [string]$AppPool,
+                  [string]$Source,
+                  [string]$Target
+              )
+              Write-Host "--- Deploying $AppName ---"
+
+              # 🛑 สั่งหยุด App Pool (เช็กสถานะก่อน)
+              $poolState = (Get-WebAppPoolState -Name $AppPool).Value
+              if ($poolState -eq "Started") {
+                  Write-Host "Stopping $AppPool..."
+                  Stop-WebAppPool -Name $AppPool
+                  Start-Sleep -Seconds 2
+              } else {
+                  Write-Host "$AppPool is already stopped."
+              }
+
+              # 📂 ก๊อปปี้ไฟล์ (เกราะป้องกัน: ละเว้นไฟล์ Config ทุกชนิดไม่ให้โดนทับ)
+              Write-Host "Copying files to $Target (Skipping Config files)..."
+              Copy-Item -Path $Source -Destination $Target -Recurse -Force -Exclude "appsettings.json", "appsettings.Production.json", "appsettings.Development.json"
+
+              # 🚀 สั่งเปิด App Pool (เช็กสถานะก่อน)
+              $poolState = (Get-WebAppPoolState -Name $AppPool).Value
+              if ($poolState -ne "Started") {
+                  Write-Host "Starting $AppPool..."
+                  Start-WebAppPool -Name $AppPool
+              } else {
+                  Write-Host "$AppPool is already running."
+              }
+              Write-Host "✅ $AppName Deployment Done!`n"
+          }
+
+          # ------------------------------------------
+          # 🏃‍♂️ 3. สั่งรันการ Deploy ทีละระบบ
+          # ------------------------------------------
+          Deploy-IISApp -AppName "API" -AppPool $ApiAppPoolName -Source $ApiSourceFolder -Target $ApiTargetFolder
+          Deploy-IISApp -AppName "WEB" -AppPool $WebAppPoolName -Source $WebSourceFolder -Target $WebTargetFolder
+
+          Write-Host "🎉 All Deployments Completed Successfully!"
