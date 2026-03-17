@@ -23,12 +23,12 @@ jobs:
           # ⚙️ 1. ตั้งค่าโฟลเดอร์ฝั่ง API และ WEB
           # ==========================================
           $ApiSourceFolder = ".\publish_files\YIPLiteAPISolution\*"
-          $ApiTargetFolder = "D:\YIPLite\API"  # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
-          $ApiAppPoolName = "ApiAppPool"       # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+          $ApiTargetFolder = "D:\YIPLite\YIPLiteAPISolution"  # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+          $ApiAppPoolName = "YIPLiteAPIPool"       # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
 
           $WebSourceFolder = ".\publish_files\YIPLiteWebSolution\*"
-          $WebTargetFolder = "D:\YIPLite\WEB"  # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
-          $WebAppPoolName = "WebAppPool"       # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+          $WebTargetFolder = "D:\YIPLite\YIPLiteWebSolution"  # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
+          $WebAppPoolName = "YIPLiteWebPool"       # 🛑 เปลี่ยนให้ตรงกับเครื่องคุณ
 
           # ==========================================
           # 📦 2. สร้างฟังก์ชัน Deploy (เพื่อไม่ให้โค้ดซ้ำซ้อน)
