@@ -1,0 +1,84 @@
+name: Deploy API with JSON Transform (Pro Mode)
+
+on:
+  workflow_dispatch: 
+    branches: [ "main", "master" ]
+
+jobs:
+  deploy-transform:
+    runs-on: [self-hosted, autox2_81] 
+
+    steps:
+      - name: 📥 1. Download Code
+        uses: actions/checkout@v4
+
+      - name: 🚀 2. Deploy & Transform IIS
+        run: |
+          Import-Module WebAdministration
+
+          # ==========================================
+          # ⚙️ 1. ตั้งค่าโฟลเดอร์ฝั่ง API
+          # ==========================================
+          $ApiSourceFolder = ".\publish_files\YIPLiteAPISolution\*"
+          $ApiTargetFolder = "D:\YIPLite\YIPLiteAPISolution"  # 🛑 เปลี่ยนให้ตรงกับโฟลเดอร์ IIS
+          $ApiAppPoolName = "YIPLiteAPIPool"       # 🛑 เปลี่ยนให้ตรงกับชื่อ App Pool
+
+          # ==========================================
+          # ⚙️ 2. เตรียม Connection String สำหรับขึ้นระบบจริง (81/SIT)
+          # ==========================================
+          # 🛑 นำ Connection String ของจริงมาใส่ตรงนี้ได้เลย
+          $DbConnection81 = "Server=AUTOX2;Database=yip_fs;User Id=sa;Password=P@ssw0rd;MultipleActiveResultSets=true;TrustServerCertificate=True"
+
+          # ------------------------------------------
+          # 📦 3. เริ่มกระบวนการ Deploy API (แบบเช็กสถานะ)
+          # ------------------------------------------
+          Write-Host "--- 1. Deploying API ---"
+          
+          # 🛡️ เช็กสถานะก่อนปิด
+          $poolState = (Get-WebAppPoolState -Name $ApiAppPoolName).Value
+          if ($poolState -eq "Started") {
+              Write-Host "Stopping API App Pool..."
+              Stop-WebAppPool -Name $ApiAppPoolName
+              Start-Sleep -Seconds 2
+          } else {
+              Write-Host "API App Pool is already stopped. Skipping stop command."
+          }
+
+          Write-Host "Copying all files (Including Dev appsettings.json)..."
+          Copy-Item -Path $ApiSourceFolder -Destination $ApiTargetFolder -Recurse -Force
+
+          # ------------------------------------------
+          # ✨ 4. เริ่มกระบวนการแปลงร่าง (Transform)
+          # ------------------------------------------
+          Write-Host "Transforming appsettings.json for 81..."
+          $AppSettingsPath = "$ApiTargetFolder\appsettings.json"
+          
+          if (Test-Path $AppSettingsPath) {
+              # 1. อ่านไฟล์แบบ UTF8 (แก้ปัญหาภาษาไทยยึกยือ)
+              $RawJson = Get-Content -Path $AppSettingsPath -Raw -Encoding UTF8
+              
+              # 2. 🧹 ใช้ Regex กวาดลบ Comment แบบ // ออกให้หมด (แต่เว้น https:// ไว้)
+              $CleanJson = [System.Text.RegularExpressions.Regex]::Replace($RawJson, '(?<!:)\/\/.*', '')
+                                                                                
+              
+              # 3. แปลงร่างเป็น Object
+              $JsonContent = $CleanJson | ConvertFrom-Json
+              
+              # 4. วิ่งเข้าไปแก้ค่า Connection String ให้เป็นของ 81
+              $JsonContent.ConnectionStrings.DefaultConnection = $DbConnection81
+              
+              # 5. แปลงกลับเป็น JSON และเซฟทับไฟล์เดิม (จัดหน้าลึก 10 ชั้น และใช้ UTF8)
+              $JsonContent | ConvertTo-Json -Depth 10 | Set-Content -Path $AppSettingsPath -Encoding UTF8
+              
+              Write-Host "Transform Success!"
+          } else {
+              Write-Host "Warning: appsettings.json not found in Target Folder!"
+          }
+
+          # ------------------------------------------
+          # 🚀 5. เปิดใช้งานเว็บ
+          # ------------------------------------------
+          Write-Host "Starting API App Pool..."
+          Start-WebAppPool -Name $ApiAppPoolName
+          
+          Write-Host "🎉 API Deployment & Transform Done!"
