@@ -1,4 +1,4 @@
-name: Deploy API & Web (Best Practice Config)
+name: Deploy_81_EnviSpecCon
 
 on:
   # push:
